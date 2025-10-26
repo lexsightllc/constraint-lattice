@@ -163,4 +163,4 @@ Constraint Lattice is released under the [MIT License](LICENSE). This permissive
 
 ### Third-Party Licenses
 - [VarkielAgent](https://github.com/ochoaughini/VarkielAgent) uses a proprietary license
-- [WildCore](https://github.com/ochoaughini/WildCore) uses the MIT License
+- [WildCore](https://github.com/ochoaughini/WildCore) uses the Mozilla Public License 2.0
