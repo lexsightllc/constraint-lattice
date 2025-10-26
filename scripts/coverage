@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+THRESHOLD=${PYTEST_COV_THRESHOLD:-80}
+
+with_venv
+ensure_command coverage
+
+log INFO "Combining coverage data"
+coverage combine || true
+coverage report --fail-under="$THRESHOLD"
+coverage xml
+log INFO "Coverage enforcement complete (threshold=${THRESHOLD}%)"

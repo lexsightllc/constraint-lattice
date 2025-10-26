@@ -64,3 +64,9 @@ htmlcov/
 build/
 *.egg-info/
 node_modules/
+sbom/
+coverage.xml
+htmlcov/
+dist/
+dashboard/.yarn/
+dashboard/.yarnrc.yml

@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.dev
+    env_file:
+      - .env.example
+    volumes:
+      - .:/workspace:delegated
+    command: scripts/dev --api-only
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - postgres
+
+  frontend:
+    image: node:18-alpine
+    working_dir: /app
+    env_file:
+      - .env.example
+    volumes:
+      - ./dashboard:/app:delegated
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  redis:
+    image: redis:7.2-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: constraint_lattice
+      POSTGRES_USER: constraint
+      POSTGRES_PASSWORD: constraint
+    ports:
+      - "5432:5432"
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+
+volumes:
+  data-postgres:

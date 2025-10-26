@@ -1,13 +1,1 @@
-profiles:
-  default:
-    - ConstraintBoundaryPrime
-    - ConstraintMirrorLaw
-    - ConstraintResetPulse
-    - ConstraintProfanityFilter
-    - SemanticSimilarityGuard
-    - { class: SemanticSimilarityGuard, params: { reference: "hello" } }
-    - ConstraintPhi2Moderation
-  regulated:
-    - Safeguard001
-    - StasisCore
-    - ResetPulse
+configs/constraints.yaml

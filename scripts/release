@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+INCREMENT=${INCREMENT:-patch}
+SIGN=${SIGN_RELEASES:-false}
+
+with_venv
+ensure_command cz
+ensure_command git
+
+log INFO "Bumping version with commitizen (${INCREMENT})"
+cz bump --yes --increment "$INCREMENT"
+
+if [ "$SIGN" = true ]; then
+  ensure_command cosign
+  log INFO "Signing git tag with cosign"
+  LATEST_TAG=$(git describe --tags --abbrev=0)
+  cosign sign git-tag:"$LATEST_TAG"
+fi
+
+log INFO "Generating changelog"
+cz changelog
+
+log INFO "Release workflow complete. Push the new tag and changelog to publish."

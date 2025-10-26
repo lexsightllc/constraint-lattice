@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+MARKS=""
+ARGS=()
+
+usage() {
+  cat <<USAGE
+Usage: $(basename "$0") [--marker <expr>] [-- args]
+
+Run unit and integration tests with pytest and coverage.
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --marker)
+      MARKS="$2"
+      shift 2
+      ;;
+    --)
+      shift
+      ARGS+=("$@")
+      break
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+with_venv
+ensure_command pytest
+ensure_command coverage
+
+PYTEST_TARGETS=(tests/unit tests/integration)
+CMD=(pytest "${PYTEST_TARGETS[@]}")
+if [ -n "$MARKS" ]; then
+  CMD+=("-m" "$MARKS")
+fi
+CMD+=("--cov=src" "--cov-report=term-missing" "--cov-report=xml" "--cov-fail-under=${PYTEST_COV_THRESHOLD:-80}")
+CMD+=("${ARGS[@]}")
+
+log INFO "Running ${CMD[*]}"
+"${CMD[@]}"

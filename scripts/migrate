@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+TARGET=${1:-head}
+
+with_venv
+
+if [ -f "$REPO_ROOT/alembic.ini" ]; then
+  ensure_command alembic
+  log INFO "Applying Alembic migrations to $TARGET"
+  alembic upgrade "$TARGET"
+elif [ -d "$REPO_ROOT/migrations" ]; then
+  log INFO "Running custom migration runner"
+  python -m migrations "$TARGET"
+else
+  log INFO "No database migrations defined; skipping"
+fi

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+with_venv
+ensure_command black
+ensure_command isort
+ensure_command ruff
+
+log INFO "Formatting Python code with Black, isort, and Ruff"
+black src tests
+isort src tests
+ruff format src tests
+
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  ensure_command npm
+  log INFO "Formatting dashboard sources with Prettier"
+  (cd "$REPO_ROOT/dashboard" && npm run format)
+fi
