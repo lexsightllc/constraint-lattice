@@ -1,0 +1,7 @@
+# Constraint Lattice ownership model
+* @constraint-lattice/maintainers
+
+# Critical infrastructure changes require platform review
+infra/** @constraint-lattice/platform
+configs/constraints.yaml @constraint-lattice/policy
+scripts/** @constraint-lattice/devxp

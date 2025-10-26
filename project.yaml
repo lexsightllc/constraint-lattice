@@ -1,0 +1,30 @@
+name: constraint-lattice
+primary_language: python
+secondary_languages:
+  - typescript
+package_manager:
+  python: pip
+  node: npm
+runtime_versions:
+  python: "3.11"
+  node: "18"
+entrypoints:
+  api: src/cli.py
+  sdk: src/sdk/__init__.py
+  frontend: dashboard/src/main.ts
+ports:
+  - 8080
+  - 3000
+service_type: library-and-service
+owners:
+  - "@constraint-lattice/maintainers"
+  - "platform@constraintlattice.dev"
+documentation:
+  onboarding: docs/README.md
+  architecture_decisions: docs/adr
+ci:
+  workflow: .github/workflows/structure-steward.yml
+notes: |
+  This metadata file captures the canonical development contract expected by the Structure Steward
+  scripts toolbelt and CI pipeline. Divergences from standard conventions are documented here for
+  future follow-up.

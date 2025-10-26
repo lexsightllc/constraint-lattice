@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+with_venv
+ensure_command pip-compile
+ensure_command pip
+
+log INFO "Updating Python dependencies"
+if [ -f requirements.in ]; then
+  pip-compile requirements.in --output-file requirements.txt
+fi
+if [ -f requirements-dev.in ]; then
+  pip-compile requirements-dev.in --output-file requirements-dev.txt
+fi
+if [ -f requirements-dev.txt ]; then
+  pip install -r requirements-dev.txt
+fi
+
+log INFO "Reporting outdated Python packages"
+pip list --outdated
+
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  ensure_command npm
+  log INFO "Running npm update in dashboard"
+  (cd "$REPO_ROOT/dashboard" && npm update)
+  (cd "$REPO_ROOT/dashboard" && npm outdated || true)
+fi
+
+if [ -f "$REPO_ROOT/package.json" ]; then
+  log INFO "Running npm update in repository root"
+  (cd "$REPO_ROOT" && npm update)
+  (cd "$REPO_ROOT" && npm outdated || true)
+fi
+
+log INFO "Dependency update pass complete"

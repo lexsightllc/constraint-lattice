@@ -1,35 +1,61 @@
-# Minimal Makefile helper for distroless build & Cloud Run deploy
+SHELL := /usr/bin/env bash
+.ONESHELL:
 
-PROJECT_ID ?= teak-amphora-464204-a7
-REGION     ?= us-central1
-REPO       ?= constraint-lattice
-TAG        ?= $(shell date +%Y%m%d-%H%M%S)
-IMAGE_URI  ?= $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO)/constraint-lattice:$(TAG)
+SCRIPT_DIR := $(CURDIR)/scripts
+ARGS ?=
 
-.PHONY: build push deploy all unify
+.PHONY: bootstrap dev lint fmt typecheck test e2e coverage build package release update-deps security-scan sbom gen-docs migrate clean check
+
+bootstrap:
+	$(SCRIPT_DIR)/bootstrap $(ARGS)
+
+dev:
+	$(SCRIPT_DIR)/dev $(ARGS)
+
+lint:
+	$(SCRIPT_DIR)/lint $(ARGS)
+
+fmt:
+	$(SCRIPT_DIR)/fmt $(ARGS)
+
+typecheck:
+	$(SCRIPT_DIR)/typecheck $(ARGS)
+
+test:
+	$(SCRIPT_DIR)/test $(ARGS)
+
+e2e:
+	$(SCRIPT_DIR)/e2e $(ARGS)
+
+coverage:
+	$(SCRIPT_DIR)/coverage $(ARGS)
 
 build:
-	docker build -f Dockerfile.distroless -t $(IMAGE_URI) .
+	$(SCRIPT_DIR)/build $(ARGS)
 
-push:
-	docker push $(IMAGE_URI)
+package:
+	$(SCRIPT_DIR)/package $(ARGS)
+
+release:
+	$(SCRIPT_DIR)/release $(ARGS)
+
+update-deps:
+	$(SCRIPT_DIR)/update-deps $(ARGS)
+
+security-scan:
+	$(SCRIPT_DIR)/security-scan $(ARGS)
 
 sbom:
-	@echo "Generating SBOM via Syft…"
-	syft packages dir:/opt/venv -o spdx-json > sbom.json || echo "Syft not installed – skipping"
-	docker cp `docker create $(IMAGE_URI)`:sbom.json sbom.json || true
+	$(SCRIPT_DIR)/sbom $(ARGS)
 
-# Replace IMAGE_URI placeholder in YAML and deploy declaratively
-cloudrun-yaml:
-	sed 's#${IMAGE_URI}#$(IMAGE_URI)#g' deployment/cloudrun/scratch-service.yaml > /tmp/cl-svc.yaml
+gen-docs:
+	$(SCRIPT_DIR)/gen-docs $(ARGS)
 
-gcmath:
-	gcloud run services replace /tmp/cl-svc.yaml --region $(REGION) --project $(PROJECT_ID)
+migrate:
+	$(SCRIPT_DIR)/migrate $(ARGS)
 
-deploy: build push cloudrun-yaml gcmath
-	@echo "Deployed $(IMAGE_URI) to Cloud Run."
+clean:
+	$(SCRIPT_DIR)/clean $(ARGS)
 
-all: deploy
-
-unify:
-	bash scripts/unify.sh
+check:
+	$(SCRIPT_DIR)/check $(ARGS)

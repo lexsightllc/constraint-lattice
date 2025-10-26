@@ -62,19 +62,20 @@ sequenceDiagram
 git clone https://github.com/ochoaughini/Constraint-Lattice.git
 cd Constraint-Lattice
 
-# Install with pip
-pip install -e .[dev]  # Development mode (includes linting/tests)
-pip install constraint-lattice     # Core framework only
-pip install "constraint-lattice[perf]"  # +Performance extensions
-# Install JS dependencies for the dashboard
-yarn install
+# Install runtime toolchains, Python dependencies, Node packages, and pre-commit hooks
+make bootstrap
+
+# Launch the full developer experience (API, frontend, background services)
+make dev
 ```
+
+The bootstrap process uses `.tool-versions` to pin Python 3.11 and Node.js 18. If you prefer manual
+installation, consult `CONTRIBUTING.md` for the exact steps to replicate the automated process.
 
 ### Docker
 
 ```bash
-docker build -t constraint-lattice .
-docker run -p 8000:8000 constraint-lattice
+docker compose up --build
 ```
 
 ### Cloud Deployment
@@ -102,17 +103,48 @@ yarn dev:dashboard
 
 ```
 Constraint-Lattice/
-├── constraint_lattice/          # Core framework
-│   ├── engine.py                # Constraint engine
-│   ├── constraints/             # Built-in constraints
-│   └── ...
-├── sdk/                         # Python SDK
-├── rest_api/                    # FastAPI microservice
-├── ui/                          # Streamlit audit viewer
-├── dashboard/                   # Vite/React dashboard
-├── tests/                       # Unit tests
-└── ...
+├── src/                         # Python packages, services, and adapters
+├── tests/
+│   ├── unit/                    # Fast-running, deterministic unit tests
+│   ├── integration/             # Service and module integration suites
+│   └── e2e/                     # Behavioral end-to-end scenarios
+├── docs/
+│   ├── adr/                     # Architectural decision records
+│   └── ...                      # Product and API documentation
+├── scripts/
+│   ├── bootstrap                # Toolchain installation
+│   ├── check                    # Aggregate local CI command
+│   └── legacy/                  # Historical utilities maintained for reference
+├── configs/                     # Configuration manifests (policies, YAML, JSON)
+├── infra/                       # Docker, Kubernetes, and platform infrastructure
+├── ci/                          # Reusable CI templates and pipelines
+├── assets/                      # Static assets and marketing collateral
+├── data/                        # Sample datasets and fixtures (non-production)
+└── project.yaml                 # Repository metadata contract
 ```
+
+## Developer Tasks
+
+| Command | Description |
+| --- | --- |
+| `make bootstrap` | Install Python/Node toolchains, dependencies, and pre-commit hooks. |
+| `make dev` | Launch the API, frontend, and backing services with hot reload. |
+| `make lint` | Run Ruff, Black, isort, ESLint, and Prettier checks. |
+| `make fmt` | Apply formatters (Black, isort, Ruff format, Prettier). |
+| `make typecheck` | Execute mypy in strict mode and `tsc --noEmit`. |
+| `make test` | Run unit and integration tests with coverage reporting. |
+| `make e2e` | Execute end-to-end scenarios against the docker-compose stack. |
+| `make coverage` | Enforce coverage thresholds and generate reports. |
+| `make build` | Produce distributable artifacts (Python wheel, frontend bundle, container image). |
+| `make package` | Package release artifacts for distribution registries. |
+| `make release` | Run semantic-release, update the changelog, and create signed tags. |
+| `make update-deps` | Apply batched dependency updates with Renovate-style grouping. |
+| `make security-scan` | Run dependency, secret, and container vulnerability scans. |
+| `make sbom` | Generate SPDX SBOMs for the repository and container images. |
+| `make gen-docs` | Rebuild API and developer documentation. |
+| `make migrate` | Apply database schema migrations deterministically. |
+| `make clean` | Remove build artifacts, caches, and temporary files. |
+| `make check` | Aggregate lint, typecheck, test, coverage, and security gates. |
 
 ## Documentation
 

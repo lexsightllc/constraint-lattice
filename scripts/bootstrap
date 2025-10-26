@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
+
+usage() {
+  cat <<USAGE
+Usage: $(basename "$0") [--ci]
+
+Bootstrap the development environment. Installs Python dependencies, Node packages,
+pre-commit hooks, and other tooling required for local development and CI.
+
+Options:
+  --ci    Skip interactive prompts and install only the tooling required for automation.
+USAGE
+}
+
+CI_MODE=false
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --ci)
+      CI_MODE=true
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      fail "Unknown option: $1"
+      ;;
+  esac
+done
+
+with_venv
+
+log INFO "Installing Python dependencies"
+pip install --upgrade pip wheel setuptools
+if [ -f "requirements-lock.txt" ]; then
+  pip install -r requirements-lock.txt
+elif [ -f "requirements-dev.txt" ]; then
+  pip install -r requirements-dev.txt
+else
+  pip install -e ".[dev,api,ui,saas]"
+fi
+
+log INFO "Installing editable package"
+pip install -e .
+
+log INFO "Installing auxiliary Python tooling"
+pip install --upgrade pip-audit bandit cyclonedx-bom coverage build typer[all] pytest pytest-cov commitizen pip-tools detect-secrets pdoc pre-commit
+
+log INFO "Installing Node dependencies"
+ensure_command npm
+ensure_node_modules "$REPO_ROOT"
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  ensure_node_modules "$REPO_ROOT/dashboard"
+fi
+
+if [ -f "$REPO_ROOT/package.json" ]; then
+  (cd "$REPO_ROOT" && npx husky install >/dev/null 2>&1 || true)
+fi
+
+log INFO "Installing pre-commit hooks"
+pre-commit install --install-hooks
+
+if [ "$CI_MODE" = true ]; then
+  log INFO "Bootstrap completed in CI mode"
+else
+  log INFO "Bootstrap completed. Activate the virtual environment with 'source .venv/bin/activate'."
+fi

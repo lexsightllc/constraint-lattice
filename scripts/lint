@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
+
+FIX=false
+
+usage() {
+  cat <<USAGE
+Usage: $(basename "$0") [--fix]
+
+Run lint checks for Python and TypeScript code. Use --fix to apply autofixes where supported.
+USAGE
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --fix)
+      FIX=true
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      fail "Unknown option: $1"
+      ;;
+  esac
+done
+
+with_venv
+ensure_command ruff
+ensure_command black
+ensure_command isort
+ensure_command npm
+
+if [ "$FIX" = true ]; then
+  log INFO "Running Ruff with autofix"
+  ruff check src tests --fix
+else
+  log INFO "Running Ruff"
+  ruff check src tests
+fi
+
+log INFO "Running Black"
+if [ "$FIX" = true ]; then
+  black src tests
+else
+  black --check src tests
+fi
+
+log INFO "Running isort"
+if [ "$FIX" = true ]; then
+  isort src tests
+else
+  isort --check-only src tests
+fi
+
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  log INFO "Running ESLint"
+  if [ "$FIX" = true ]; then
+    (cd "$REPO_ROOT/dashboard" && npm run lint:fix)
+  else
+    (cd "$REPO_ROOT/dashboard" && npm run lint)
+  fi
+
+  log INFO "Running Prettier"
+  if [ "$FIX" = true ]; then
+    (cd "$REPO_ROOT/dashboard" && npm run format)
+  else
+    (cd "$REPO_ROOT/dashboard" && npm run format:check)
+  fi
+fi

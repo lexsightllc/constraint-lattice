@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+REGISTRY=${REGISTRY:-}
+
+with_venv
+ensure_command python
+
+log INFO "Creating source distribution and wheel"
+python -m build --sdist --wheel
+
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  ensure_command npm
+  log INFO "Creating npm package tarball"
+  (cd "$REPO_ROOT/dashboard" && npm pack)
+fi
+
+if [ -n "$REGISTRY" ] && command -v docker >/dev/null 2>&1; then
+  IMAGE_NAME=${IMAGE_NAME:-constraint-lattice/app}
+  if command -v git >/dev/null 2>&1; then
+    IMAGE_TAG=${IMAGE_TAG:-$(git rev-parse --short HEAD)}
+  else
+    IMAGE_TAG=${IMAGE_TAG:-latest}
+  fi
+  log INFO "Building and tagging ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+  docker build -f infra/docker/Dockerfile --tag "${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}" .
+fi

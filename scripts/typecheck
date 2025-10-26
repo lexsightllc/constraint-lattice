@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+with_venv
+ensure_command mypy
+log INFO "Running mypy in strict mode"
+mypy --strict src
+
+if [ -d "$REPO_ROOT/dashboard" ]; then
+  ensure_command npm
+  log INFO "Running TypeScript compiler with noEmit"
+  (cd "$REPO_ROOT/dashboard" && npm run type-check)
+fi

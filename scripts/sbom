@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+source "$SCRIPT_DIR/lib.sh"
+
+OUTPUT_DIR=${1:-$REPO_ROOT/sbom}
+mkdir -p "$OUTPUT_DIR"
+
+with_venv
+ensure_command cyclonedx-bom
+
+log INFO "Generating Python SBOM"
+cyclonedx-bom -e -o "$OUTPUT_DIR/python-sbom.json" -F json
+
+if command -v syft >/dev/null 2>&1; then
+  log INFO "Generating container SBOM with Syft"
+  syft dir:"$REPO_ROOT" -o spdx-json > "$OUTPUT_DIR/container-sbom.json"
+else
+  log INFO "Syft not found; skipping container SBOM generation"
+fi
+
+log INFO "SBOM artifacts stored in $OUTPUT_DIR"
