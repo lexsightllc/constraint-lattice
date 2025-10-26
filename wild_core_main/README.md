@@ -1,7 +1,7 @@
 # WildCore: Advanced AI Security & Anomaly Detection Framework
 
 [![CI/CD](https://github.com/ochoaughini/WildCore/actions/workflows/ci.yml/badge.svg)](https://github.com/ochoaughini/WildCore/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://github.com/ochoaughini/WildCore/wiki)
 
@@ -82,4 +82,4 @@ Full documentation is available on the [WildCore Wiki](https://github.com/ochoau
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
-WildCore is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+WildCore is licensed under the Mozilla Public License 2.0. See [LICENSE](LICENSE) for details.
