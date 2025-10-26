@@ -1,0 +1,80 @@
+# SPDX-License-Identifier: BSL-1.1
+Copyright (c) 2025 Lexsight LCC. All rights reserved.
+
+Business Source License 1.1
+
+Parameters
+==========
+
+Licensor: Lexsight LCC
+
+Licensed Work: Constraint-Lattice SaaS Components (the "Work") —
+all source code located in the `/saas`, `/api`, and `/billing`
+sub-directories of the Constraint-Lattice repository as of the
+Change Date.
+
+Change Date: 2028-01-01 00:00:00 UTC  # ≈ three years after initial
+release — on this date the Work will automatically convert to the MIT
+License.
+
+Additional Use Grant: You may use, copy, modify, build upon, and run
+the Work for **non-production, non-commercial** purposes (e.g. local
+development, evaluation, academic research) free of charge until the
+Change Date.
+
+License Grant
+=============
+
+The Licensor hereby grants you the rights set forth above, subject to
+the following Use Limitation:
+
+Use Limitation: You may **not** provide the Work to third parties as a
+paid or unpaid hosted or managed service without a separate commercial
+license agreement from Lexsight LCC. Offering "Constraint-Lattice
+Cloud" or any substantially similar service that exposes the Work as a
+SaaS product is expressly forbidden.
+
+Other Conditions
+================
+
+1. You must retain the above parameters in all copies of the Work.
+2. Any copy of the Work you distribute must include a copy of this
+   License.
+3. You may contribute to the Work. Unless the Licensor agrees
+   otherwise, any contribution you make shall be governed by the
+   License and the above parameters.
+4. This License does not grant you any right in any trademark or logo
+   of Licensor.
+5. Subject to the terms of this License, each contributor grants you a 
+   non-exclusive, worldwide, royalty-free patent license under their 
+   patent claims to make, use, sell, offer for sale, and import the 
+   Licensed Work.
+
+Full License Text
+=================
+
+The full legal text of the Business Source License v1.1 follows.
+
+Business Source License 1.1
+
+Copyright (c) 2025 Lexsight LCC. All rights reserved.
+
+Terms
+
+The Business Source License (this document) may not be copied or distributed without prior written approval by the copyright holder.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions, and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+4. Redistributions in any form must be accompanied by information on how to obtain complete source code for the software and any accompanying software that uses the software. The source code must either be included in the distribution or be available for no more than the cost of distribution plus a nominal fee, and must be freely redistributable under reasonable conditions. For an executable file, complete source code means the source code for all modules it contains. It does not include source code for modules or files that typically accompany the major components of the operating system on which the executable file runs.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER ON AN "AS IS" BASIS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT, ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Additional permissions under the Business Source License 1.1 may be available from the copyright holder by contacting contact@lexsight.ai.
+
+THIS LICENSE IS NOT AN OPEN SOURCE LICENSE. See <https://mariadb.com/bsl>. 
