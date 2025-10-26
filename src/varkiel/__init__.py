@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Varkiel cognitive agent package."""
 
 from .agent import VarkielAgent

@@ -2,7 +2,7 @@
 # Copyright (c) 2025 Lexsight LCC. All rights reserved.
 # See saas/LICENSE-BSL.txt for full terms.
 
-Importing this module from MIT-licensed packages is safe; it exposes only a
+Importing this module from MPL-licensed packages is safe; it exposes only a
 boolean constant and never pulls additional commercial dependencies.
 """
 from __future__ import annotations

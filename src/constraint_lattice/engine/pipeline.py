@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Simple orchestration pipeline for applying constraints then optional meta logic."""
 from __future__ import annotations
 

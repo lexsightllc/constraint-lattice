@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Simplified constraint lattice for the Varkiel agent."""
 
 from __future__ import annotations

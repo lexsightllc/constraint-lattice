@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Tests for cyclic constraint propagation."""
 
 from constraint_lattice_core import ConstraintLattice

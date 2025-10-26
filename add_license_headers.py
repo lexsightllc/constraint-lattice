@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import os
 
-# Define the license header for MIT
-MIT_HEADER = """# SPDX-License-Identifier: MIT
+# Define the license header for MPL 2.0
+MPL_HEADER = """# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """
 
@@ -29,7 +29,7 @@ for root, dirs, files in os.walk(ROOT_DIR):
                 content = f.read()
             
             # Prepend the header
-            new_content = MIT_HEADER + content
+            new_content = MPL_HEADER + content
             
             # Write back
             with open(file_path, 'w') as f:

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Symbolic state emission and affinity graph utilities.
 
 This module defines helper classes for encoding textual state into vectors and

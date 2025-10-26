@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Minimal orchestrator implementing Varkiel concepts."""
 
 from __future__ import annotations

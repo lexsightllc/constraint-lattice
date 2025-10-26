@@ -5,7 +5,7 @@
  * Description: Adds the shortcode [clattice_demo] to interact with the Constraint-Lattice Cloud Run API.
  * Version:     0.1.0
  * Author:      Constraint Lattice Team
- * License:     MIT
+ * License:     MPL 2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

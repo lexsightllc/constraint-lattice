@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Utility functions for advanced constraint graph operations.
 
 This module implements helpers referenced in the advanced documentation:

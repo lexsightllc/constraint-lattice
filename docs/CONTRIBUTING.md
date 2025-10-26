@@ -3,16 +3,16 @@
 Thank you for your interest in improving Constraint-Lattice!  We embrace an
 **open-core** model:
 
-* **MIT Core** – All code under the `clattice/`, `constraints/`, `engine/`, and
-  other *core* folders is licensed under the permissive MIT license.
+* **MPL Core** – All code under the `clattice/`, `constraints/`, `engine/`, and
+  other *core* folders is licensed under the Mozilla Public License 2.0.
 * **BSL SaaS Layer** – Code inside `saas/`, `api/`, `billing/`, and related
   infrastructure directories is released under the Business Source License
   v1.1 (BSL-1.1).
 
 By participating in this project you agree that:
 
-1. Any pull request that modifies **core** paths is contributed under the MIT
-   license.
+1. Any pull request that modifies **core** paths is contributed under the
+   Mozilla Public License 2.0.
 2. Any contribution that touches **SaaS** paths is contributed under the
    BSL-1.1 terms **unless** you obtain explicit written permission from
    **Lexsight LCC** designating a different license.
@@ -41,7 +41,7 @@ git commit -s -m "feat(core): add new constraint"
 3. Run `pre-commit run --all-files`.
 4. Open a Pull Request – fill in the template.
 
-### Core Pull Requests (MIT)
+### Core Pull Requests (MPL)
 * Keep public APIs stable.
 * Add or update documentation.
 * Include unit tests.

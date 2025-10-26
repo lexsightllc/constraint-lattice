@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Standalone autonomous agent implementation.
 
 This module provides a lightweight implementation of ``AutonomousAgent`` used

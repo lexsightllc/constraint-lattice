@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Minimal WildCore anomaly detector."""
 
 from __future__ import annotations

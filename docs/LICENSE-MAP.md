@@ -14,8 +14,8 @@ sub-directories of the Constraint-Lattice repository as of the
 Change Date.
 
 Change Date: 2028-01-01 00:00:00 UTC  # ≈ three years after initial
-release — on this date the Work will automatically convert to the MIT
-License.
+release — on this date the Work will automatically convert to the
+Mozilla Public License 2.0.
 
 Additional Use Grant: You may use, copy, modify, build upon, and run
 the Work for **non-production, non-commercial** purposes (e.g. local

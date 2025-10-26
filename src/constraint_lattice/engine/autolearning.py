@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Containment constraints and autolearning utilities.
 
 This module implements the high-level routines described in the

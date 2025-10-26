@@ -138,7 +138,7 @@ The project is configured for deployment on Netlify. To deploy:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under a proprietary license - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 

@@ -1,11 +1,11 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import os
 import sys
 
-MIT_HEADER = """# SPDX-License-Identifier: MIT
+MPL_HEADER = """# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """
 
@@ -67,7 +67,7 @@ def main():
                 if relative_path.startswith('saas') or relative_path.startswith('api') or relative_path.startswith('billing'):
                     header_text = get_header(comment_style, BSL_HEADER)
                 else:
-                    header_text = get_header(comment_style, MIT_HEADER)
+                    header_text = get_header(comment_style, MPL_HEADER)
                 
                 add_header_to_file(file_path, header_text, comment_style)
 
