@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Simplified constraint lattice implementation used for tests.
 
 This module defines a small :class:`ConstraintLattice` class capable of storing

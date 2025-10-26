@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 # (c) 2025 ochoaughini. See LICENSE for full terms.
 """Wrapper script to generate LICENSE_MAP.md.
 

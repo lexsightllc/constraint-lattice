@@ -115,9 +115,9 @@ Varkiel Agent is available under dual licensing:
 
 ## License Interaction
 
-Varkiel Agent is proprietary software, while the Constraint Lattice component is MIT licensed. This means:
+Varkiel Agent is proprietary software, while the Constraint Lattice component is licensed under the Mozilla Public License 2.0. This means:
 
-- You may use and modify the Constraint Lattice independently under MIT terms
+- You may use and modify the Constraint Lattice independently under MPL 2.0 terms
 - Combining Constraint Lattice with Varkiel Agent requires a commercial license
 - Any derivative work of Varkiel Agent must adhere to the Lexsight LLC Proprietary Software License
 

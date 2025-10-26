@@ -4,7 +4,7 @@ Tags: ai, moderation, fastapi, llm
 Requires at least: 5.9
 Tested up to: 6.5
 Stable tag: 0.1.0
-License: MIT
+License: MPL 2.0
 
 A lightweight shortcode to demo Constraint-Lattice moderation directly inside WordPress pages.
 

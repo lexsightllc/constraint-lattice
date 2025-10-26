@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 from __future__ import annotations

@@ -3,7 +3,7 @@
 **Constraint-Lattice Cloud** is the fully-managed, enterprise-grade edition of
 Constraint-Lattice operated by **Lexsight LCC**.
 
-| Feature | Free MIT Core | Constraint-Lattice Cloud |
+| Feature | Free MPL Core | Constraint-Lattice Cloud |
 |---------|--------------|---------------------------|
 | Hosted API & UI | — | ✓ Global CDN + autoscaling |
 | 99.9% SLA | — | ✓ |

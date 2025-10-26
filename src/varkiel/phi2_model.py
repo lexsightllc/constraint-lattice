@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Placeholder for the Phi-2 moderation model."""
 
 from __future__ import annotations

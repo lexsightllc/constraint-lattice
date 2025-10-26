@@ -4,7 +4,7 @@
 
 This module is only available when the environment variable
 ``ENABLE_SAAS_FEATURES=true`` is present. Attempting to import it without the
-flag raises ``ImportError`` so that core (MIT) builds remain self-contained and
+flag raises ``ImportError`` so that core (MPL) builds remain self-contained and
 immune from accidental BSL leakage.
 """
 

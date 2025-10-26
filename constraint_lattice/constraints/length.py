@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Length constraint utilities used in unit tests."""
 from __future__ import annotations
 

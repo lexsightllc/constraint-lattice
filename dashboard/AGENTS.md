@@ -11,7 +11,7 @@
 | Agent      | Path                                 | License              | One-liner                                                                                               |
 |------------|--------------------------------------|----------------------|----------------------------------------------------------------------------------------------------------|
 | **Varkiel**| `varkiel_agent_main/src/varkiel`     | Lexsight-Proprietary | Tripartite cognitive engine that fuses lattice-theoretic constraints, neural-symbolic coherence and phenomenological tracking. |
-| **WildCore**| `wild_core_main/src/wildcore`        | MIT                  | Modular security & anomaly-detection framework simulating malicious prompts (red team) and detecting drifts with an ensemble detector. |
+| **WildCore**| `wild_core_main/src/wildcore`        | MPL 2.0              | Modular security & anomaly-detection framework simulating malicious prompts (red team) and detecting drifts with an ensemble detector. |
 
 *Table auto-generated from `agents.coz`; run `npm run gen:docs` after adding a new agent to keep it fresh.*
 

@@ -1,7 +1,7 @@
 # Constraint Lattice
 
 [![CI/CD](https://github.com/ochoaughini/Constraint-Lattice/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ochoaughini/Constraint-Lattice/actions/workflows/docker-publish.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 [![Coverage](https://img.shields.io/badge/Coverage-95%25-brightgreen)](./coverage)
 
 **Unlock the Power of Composable Constraints**
@@ -159,7 +159,7 @@ We welcome contributions! Please see our [Contribution Guidelines](CONTRIBUTING.
 
 ## License
 
-Constraint Lattice is released under the [MIT License](LICENSE). This permissive license allows free use, modification, and distribution.
+Constraint Lattice is released under the [Mozilla Public License 2.0](LICENSE). This file-based copyleft license encourages collaboration while ensuring improvements remain accessible to the community.
 
 ### Third-Party Licenses
 - [VarkielAgent](https://github.com/ochoaughini/VarkielAgent) uses a proprietary license

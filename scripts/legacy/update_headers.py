@@ -9,8 +9,8 @@ from pathlib import Path
 
 # License header templates
 HEADERS = {
-    "MIT": (
-        "# SPDX-License-Identifier: MIT\n"
+    "MPL": (
+        "# SPDX-License-Identifier: MPL-2.0\n"
         "# Copyright (c) 2025 ochoaughini. All rights reserved.\n"
         "# See LICENSE for full terms.\n\n"
     ),
@@ -28,8 +28,8 @@ HEADERS = {
 
 # Directory to license mapping
 LICENSE_MAP = {
-    "constraint_lattice": "MIT",
-    "src/constraint_lattice": "MIT",
+    "constraint_lattice": "MPL",
+    "src/constraint_lattice": "MPL",
     "saas": "BSL",
     "src/clattice": "BSL"
 }

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
@@ -8,12 +8,12 @@ import sys
 
 # Define the expected headers for each license type and comment style
 HEADERS = {
-    'MIT': {
-        '.py': '# SPDX-License-Identifier: MIT\n# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
-        '.js': '// SPDX-License-Identifier: MIT\n// Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
-        '.ts': '// SPDX-License-Identifier: MIT\n// Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
-        '.css': '/* SPDX-License-Identifier: MIT */\n/* Copyright (c) 2025 ochoaughini. See LICENSE for full terms. */',
-        '.html': '<!-- SPDX-License-Identifier: MIT -->\n<!-- Copyright (c) 2025 ochoaughini. See LICENSE for full terms. -->'
+    'MPL': {
+        '.py': '# SPDX-License-Identifier: MPL-2.0\n# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
+        '.js': '// SPDX-License-Identifier: MPL-2.0\n// Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
+        '.ts': '// SPDX-License-Identifier: MPL-2.0\n// Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
+        '.css': '/* SPDX-License-Identifier: MPL-2.0 */\n/* Copyright (c) 2025 ochoaughini. See LICENSE for full terms. */',
+        '.html': '<!-- SPDX-License-Identifier: MPL-2.0 -->\n<!-- Copyright (c) 2025 ochoaughini. See LICENSE for full terms. -->'
     },
     'BSL': {
         '.py': '# SPDX-License-Identifier: BSL-1.1\n# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.',
@@ -33,7 +33,7 @@ def check_license_headers():
             continue
         for file in files:
             ext = os.path.splitext(file)[1]
-            if ext not in HEADERS['MIT']:
+            if ext not in HEADERS['MPL']:
                 continue
             file_path = os.path.join(root, file)
             relative_path = os.path.relpath(file_path, repo_root)
@@ -41,7 +41,7 @@ def check_license_headers():
             if relative_path.startswith('saas') or relative_path.startswith('api') or relative_path.startswith('billing'):
                 expected_spdx = HEADERS['BSL'][ext]
             else:
-                expected_spdx = HEADERS['MIT'][ext]
+                expected_spdx = HEADERS['MPL'][ext]
             with open(file_path, 'r') as f:
                 content = f.read(500)
                 if expected_spdx not in content:

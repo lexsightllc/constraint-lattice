@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: MPL-2.0
 """Abstract base class for constraints."""
 
 from abc import ABC, abstractmethod
