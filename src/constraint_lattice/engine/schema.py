@@ -26,8 +26,13 @@ class ConstraintSchema(BaseModel):
 
 class ConstraintConfig(BaseModel):
     """Schema for constraint configuration files"""
+
     version: str
     constraints: List[ConstraintSchema]
+    includes: List[str] = Field(
+        default_factory=list,
+        description="Optional list of additional config files to include",
+    )
 
 
 @dataclass

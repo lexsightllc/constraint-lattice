@@ -13,11 +13,26 @@ __all__ = [
     "ConstraintPhi2Moderation",
 ]
 
-from .boundary_prime import ConstraintBoundaryPrime
-from .mirror_law import ConstraintMirrorLaw
-from .reset_pulse import ConstraintResetPulse
+try:
+    from .boundary_prime import ConstraintBoundaryPrime
+except Exception:  # optional dependency (jax)
+    ConstraintBoundaryPrime = None  # type: ignore
+
+try:
+    from .mirror_law import ConstraintMirrorLaw
+except Exception:
+    ConstraintMirrorLaw = None  # type: ignore
+
+try:
+    from .reset_pulse import ConstraintResetPulse
+except Exception:
+    ConstraintResetPulse = None  # type: ignore
+
 from .profanity import ProfanityFilter
 from .length import LengthConstraint
 from .constraint_profanity_filter import ConstraintProfanityFilter
 from .semantic_similarity_guard import SemanticSimilarityGuard
 from .phi2_moderation import ConstraintPhi2Moderation
+
+# Ensure submodules are discoverable for compatibility shims
+from . import phi2_moderation  # noqa: F401

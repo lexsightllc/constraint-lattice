@@ -2,6 +2,8 @@
 # Copyright (c) 2025 Lexsight LCC. All rights reserved.
 # See saas/LICENSE-BSL.txt for full terms.
 
+"""Runtime entry-point for optional SaaS-specific helpers.
+
 This module is only available when the environment variable
 ``ENABLE_SAAS_FEATURES=true`` is present. Attempting to import it without the
 flag raises ``ImportError`` so that core (MPL) builds remain self-contained and
