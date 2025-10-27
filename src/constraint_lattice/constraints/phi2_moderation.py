@@ -3,7 +3,8 @@
 # See LICENSE for full terms.
 
 import logging
-from typing import Optional, Tuple
+import os
+from typing import Any, Dict, Optional, Tuple
 
 try:
     import torch  # type: ignore
@@ -40,7 +41,6 @@ try:
         BitsAndBytesConfig,
         pipeline,
     )
-    from transformers.pipelines import Conversation, Pipeline
 
     pl = pipeline
 except ModuleNotFoundError:  # pragma: no cover
@@ -48,7 +48,6 @@ except ModuleNotFoundError:  # pragma: no cover
     AutoTokenizer = None
     BitsAndBytesConfig = None
     pipeline = None
-    Conversation = None
     pl = None
 
 logger = logging.getLogger(__name__)
@@ -65,6 +64,7 @@ class ConstraintPhi2Moderation:
         device: Optional[str] = None,
         safety_threshold: float = 0.7,
         quantize: bool = False,
+        fallback_strategy: str = "mask",
     ):
         """
         Initialize Phi-2 moderation constraint
@@ -77,8 +77,15 @@ class ConstraintPhi2Moderation:
         self.device = device or default_device
         self.quantize = quantize
         self.safety_threshold = safety_threshold
+        self.fallback_strategy = fallback_strategy
 
-        if AutoTokenizer is not None and AutoModelForCausalLM is not None:
+        load_real_model = (
+            AutoTokenizer is not None
+            and AutoModelForCausalLM is not None
+            and os.environ.get("CL_USE_PHI2")
+        )
+
+        if load_real_model:
             # Initialize tokenizer
             self.tokenizer = AutoTokenizer.from_pretrained(
                 model_name, trust_remote_code=True
@@ -92,7 +99,7 @@ class ConstraintPhi2Moderation:
                     self.model, {torch.nn.Linear}, dtype=torch.qint8
                 )
             self.model = self.model.to(self.device)
-        else:  # pragma: no cover - transformers missing
+        else:  # pragma: no cover - transformers missing or offline stub
             self.tokenizer = None
             self.model = None
         self.logger = logging.getLogger(__name__)
@@ -148,6 +155,35 @@ class ConstraintPhi2Moderation:
             self.logger.error(f"Phi-2 moderation failed: {str(e)}")
             # Fallback: Return safe but log error
             return True, None
+
+    def _analyse(self, text: str) -> Dict[str, Any]:
+        is_safe, reason = self.apply_constraints(text)
+        violations: Dict[str, float] = {}
+        if not is_safe and reason:
+            violations["policy_violation"] = 1.0
+        return {"is_safe": is_safe, "violations": violations, "reason": reason}
+
+    def _regenerate(self, text: str, analysis: Dict[str, Any]) -> str:
+        """Generate a simple safe replacement when regeneration is requested."""
+
+        return "[Content adapted by Phi-2 moderation]"
+
+    def moderate(self, text: str) -> str:
+        """Moderate ``text`` according to the configured fallback strategy."""
+
+        analysis = self._analyse(text)
+        if analysis.get("is_safe", True):
+            return text
+
+        strategy = self.fallback_strategy.lower()
+        if strategy == "block":
+            reason = analysis.get("reason") or "Policy violation"
+            return f"[Content removed: {reason}]"
+        if strategy == "mask":
+            return "[REDACTED]"
+        if strategy == "regenerate":
+            return self._regenerate(text, analysis)
+        return text
 
     def __repr__(self) -> str:
         return f"ConstraintPhi2Moderation(model='{self.model_name}', threshold={self.safety_threshold})"

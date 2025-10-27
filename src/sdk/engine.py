@@ -40,7 +40,7 @@ class ConstraintEngine:
 
         if constraints is None:
             self.constraints = load_constraints_from_yaml(
-                config_path, profile
+                config_path, profile, self.search_modules
             )
         else:
             self.constraints = constraints

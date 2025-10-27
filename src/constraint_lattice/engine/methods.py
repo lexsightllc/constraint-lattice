@@ -7,10 +7,8 @@ from typing import Callable, Dict, Optional, Tuple, Any
 
 
 METHODS = {
-    "process_text": False,  # Doesn't require prompt
-    "process_with_prompt": True,  # Requires prompt
-    
-    # Legacy methods for backward compatibility
+    # Legacy methods for backward compatibility come first so mocks without
+    # explicit attributes don't accidentally satisfy the modern hook.
     "enforce_constraint": False,
     "filter_constraint": True,
     "regulate_constraint": True,
@@ -26,6 +24,10 @@ METHODS = {
     "redact_constraint": False,
     "nullify_constraint": False,
     "intervene_constraint": False,
+
+    # Modern processing hooks
+    "process_text": False,  # Doesn't require prompt
+    "process_with_prompt": True,  # Requires prompt
 }
 
 

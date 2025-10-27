@@ -48,7 +48,7 @@ def _alias(top_level_name: str) -> None:
     """Import *top_level_name* and alias it under constraint_lattice.*."""
     try:
         module = importlib.import_module(top_level_name)
-    except (ImportError, ModuleNotFoundError):  # optional or gated module
+    except Exception:  # optional or gated module
         return
     sys.modules[f"constraint_lattice.{top_level_name}"] = module
     setattr(sys.modules[__name__], top_level_name, module)
@@ -59,7 +59,10 @@ if os.getenv("CL_IMPORT_SDK", "1") == "1":
     _alias("sdk")
 
 if os.getenv("ENABLE_SAAS_FEATURES", "false").lower() in ["true", "1"]:
-    from .saas import *
+    try:
+        from .saas import *  # type: ignore
+    except ImportError:
+        pass
 
 # Expose a PEP 561 marker so type-checkers know this is a typed pkg in future.
 try:

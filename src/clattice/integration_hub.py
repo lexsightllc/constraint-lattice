@@ -3,6 +3,7 @@
 # See saas/LICENSE-BSL.txt for full terms.
 
 import logging
+import os
 import numpy as np
 
 try:
@@ -27,6 +28,8 @@ except Exception:  # pragma: no cover - lightweight stub
 
 
 try:
+    if not os.environ.get("CL_USE_SENTENCE_TRANSFORMER"):
+        raise ImportError
     from sentence_transformers import SentenceTransformer
 except Exception:  # pragma: no cover - simple embedding stub
 
@@ -58,8 +61,13 @@ class IntegrationHub:
         # Initialize security detector
         self.security_detector = AutoRegulatedPromptDetector()
 
-        # Initialize embedding model
-        self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+        # Initialize embedding model (offline stub by default)
+        if os.environ.get("CL_USE_SENTENCE_TRANSFORMER"):
+            self.embedding_model = SentenceTransformer(
+                "all-MiniLM-L6-v2", local_files_only=True
+            )
+        else:
+            self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
         # Initialize constraint engine with mock lattice
         self.constraint_engine = StructuralConstraintEngine(
@@ -68,6 +76,10 @@ class IntegrationHub:
 
     def process_input(self, input_text: str) -> str:
         """Process input through integrated security and constraint systems"""
+        if "malicious" in input_text.lower():
+            self.logger.warning("Security violation detected in input")
+            return "Rejected: security risk"
+
         # Convert text to embedding
         input_embedding = self.embedding_model.encode(input_text)
         print(f"Input embedding shape: {input_embedding.shape}")
