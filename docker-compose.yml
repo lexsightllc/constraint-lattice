@@ -4,17 +4,33 @@ services:
   api:
     build:
       context: .
-      dockerfile: infra/docker/Dockerfile.dev
+      dockerfile: Dockerfile
     env_file:
       - .env.example
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+      - ENABLE_SAAS_FEATURES=false
     volumes:
       - .:/workspace:delegated
-    command: scripts/dev --api-only
+      - api-cache:/app/.cache
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8080 --reload
     ports:
       - "8080:8080"
     depends_on:
-      - redis
-      - postgres
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - constraint-lattice
+    restart: unless-stopped
 
   frontend:
     image: node:18-alpine
@@ -23,16 +39,32 @@ services:
       - .env.example
     volumes:
       - ./dashboard:/app:delegated
+      - node-modules:/app/node_modules
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 3000"
     ports:
       - "3000:3000"
     depends_on:
-      - api
+      api:
+        condition: service_healthy
+    networks:
+      - constraint-lattice
+    restart: unless-stopped
 
   redis:
     image: redis:7.2-alpine
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - constraint-lattice
+    restart: unless-stopped
 
   postgres:
     image: postgres:15-alpine
@@ -40,10 +72,27 @@ services:
       POSTGRES_DB: constraint_lattice
       POSTGRES_USER: constraint
       POSTGRES_PASSWORD: constraint
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
     volumes:
-      - data-postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U constraint -d constraint_lattice"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - constraint-lattice
+    restart: unless-stopped
+
+networks:
+  constraint-lattice:
+    driver: bridge
 
 volumes:
-  data-postgres:
+  postgres-data:
+  redis-data:
+  api-cache:
+  node-modules:

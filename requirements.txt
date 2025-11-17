@@ -1,18 +1,40 @@
+# Core ML/AI dependencies
 torch==2.2.1
 transformers>=4.41.0
-accelerate
-bitsandbytes
-sentence-transformers
-prometheus_client
-fastapi==0.68.0
-uvicorn==0.15.0
-python-dotenv==0.17.0
-opentelemetry-api==1.2.0
-pydantic~=1.10.14
-jax==0.4.13
-jaxlib==0.4.33
-confluent-kafka==2.3.0
-streamlit==1.33.0
-openai==0.8.0
-requests==2.28.1
-huggingface-hub>=0.20.0
+accelerate>=0.25.0
+bitsandbytes>=0.41.0
+sentence-transformers>=2.7.0
+huggingface-hub>=0.22.0
+
+# Monitoring and metrics
+prometheus_client>=0.20.0
+
+# Web framework and API
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+
+# Configuration and environment
+python-dotenv>=1.0.0
+
+# Telemetry and tracing
+opentelemetry-api>=1.25.0
+
+# Data validation
+pydantic>=2.0.0,<3.0.0
+
+# JAX for high-performance computing
+jax>=0.4.20
+jaxlib>=0.4.20
+
+# Kafka integration
+confluent-kafka>=2.3.0
+
+# UI dashboard
+streamlit>=1.36.0
+
+# External APIs
+openai>=1.35.0
+
+# HTTP client
+requests>=2.32.0

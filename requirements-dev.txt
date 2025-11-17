@@ -1,20 +1,52 @@
-pytest>=7.4
+# Testing framework
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+hypothesis>=6.99.0
+
+# Telemetry and monitoring
 opentelemetry-sdk>=1.25.0
 prometheus-client>=0.20.0
+
+# Database drivers
 psycopg2-binary>=2.9.9
-sqlalchemy>=2.0
-hypothesis>=6.99
-fastapi==0.68.0
-uvicorn==0.15.0
-redis>=5.0
-llama-cpp-python>=0.2.77
-sentence-transformers>=2.7
+sqlalchemy>=2.0.0
+
+# Development web framework dependencies (align with requirements.txt)
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+
+# Cache and message queue
+redis>=5.0.0
 kafka-python>=2.0.2
-clickhouse-connect>=0.7
-streamlit==1.10.0
-requests==2.26.0
-python-multipart==0.0.5
-websockets==10.3
-pyyaml==6.0
+
+# ML and AI testing
+llama-cpp-python>=0.2.77
+sentence-transformers>=2.7.0
+
+# Data storage and analytics
+clickhouse-connect>=0.7.0
+
+# UI testing
+streamlit>=1.36.0
+
+# HTTP and networking
+requests>=2.32.0
+websockets>=12.0
+
+# Configuration parsing
+pyyaml>=6.0.1
+
+# Code quality tools
+ruff>=0.4.0
+black>=24.0.0
+mypy>=1.10.0
+isort>=5.13.0
+
+# Security scanning
+bandit>=1.7.8
+safety>=3.0.0
+
 # Optional: install matching jax & jaxlib wheels for CPU-only testing
 # pip install --upgrade "jax[cpu]"
