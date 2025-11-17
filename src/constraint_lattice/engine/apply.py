@@ -11,7 +11,9 @@ Author: Constraint Lattice Team
 Last Updated: 2025-07-04
 """
 
+import itertools
 import logging
+import os
 from contextlib import nullcontext
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -62,7 +64,7 @@ class AuditStep:
     model_scores: Dict[str, float] = field(default_factory=dict)
     embeddings: Dict[str, list] = field(default_factory=dict)
     timestamp: datetime = field(
-        default_factory=lambda: datetime.utcnow().replace(tzinfo=timezone.utc)
+        default_factory=lambda: datetime.now(timezone.utc)
     )
     strategy_reindex: Optional[Dict[str, Any]] = None
     drift_score: Optional[float] = None
